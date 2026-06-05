@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import CtaButton from './CtaButton.astro';
+import Countdown from './Countdown.astro';
+import { hero } from '../data/content';
+import { COURSE } from '../config';
+import heroImg from '../assets/img/01.jpg';
+---
+
+<section id="hero" class="relative overflow-hidden">
+  <div
+    aria-hidden="true"
+    class="absolute -top-32 -right-32 h-[640px] w-[640px] rounded-full bg-[var(--color-cream-dark)]/60 blur-3xl"
+  >
+  </div>
+
+  <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 pt-10 pb-20 md:px-8 md:pt-16 md:pb-28 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+    <div class="reveal">
+      <p class="flex items-center gap-3 text-xs uppercase tracking-[0.28em] text-[var(--color-accent)]">
+        <span class="block h-px w-8 bg-[var(--color-accent)]"></span>
+        {hero.eyebrow}
+      </p>
+
+      <h1 class="mt-6 font-display text-5xl leading-[1.02] text-[var(--color-ink)] md:text-7xl lg:text-[5.5rem]">
+        {hero.title}
+      </h1>
+
+      <p class="mt-6 max-w-xl text-lg leading-relaxed text-[var(--color-ink-soft)] md:text-xl">
+        {hero.subtitle}
+      </p>
+
+      <div class="mt-10 rounded-3xl bg-[var(--color-card)]/70 p-6 backdrop-blur-sm shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/30">
+        <Countdown targetIso={COURSE.startDate} label={`До старту 3 потоку (${COURSE.startDateLabel})`} />
+      </div>
+
+      <div class="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
+        <CtaButton size="lg">{hero.ctaPrimary}</CtaButton>
+        <a
+          href="#program"
+          class="inline-flex items-center justify-center gap-2 px-4 py-3 text-sm font-medium uppercase tracking-wider text-[var(--color-ink)] hover:text-[var(--color-accent)]"
+        >
+          {hero.ctaSecondary}
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
+          </svg>
+        </a>
+      </div>
+
+      <dl class="mt-12 grid max-w-md grid-cols-3 gap-4 border-t border-[var(--color-gold)]/30 pt-6">
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">Тривалість</dt>
+          <dd class="mt-1 font-display text-2xl text-[var(--color-ink)]">4 місяці</dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">Уроків</dt>
+          <dd class="mt-1 font-display text-2xl text-[var(--color-ink)]">30</dd>
+        </div>
+        <div>
+          <dt class="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">Доступ</dt>
+          <dd class="mt-1 font-display text-2xl text-[var(--color-ink)]">назавжди</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="reveal relative">
+      <div
+        aria-hidden="true"
+        class="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-br from-[var(--color-cream-dark)] to-transparent"
+      >
+      </div>
+      <Image
+        src={heroImg}
+        alt="Наталія Кармолог, психолог та авторка Школи духовного розвитку"
+        widths={[480, 720, 960, 1200]}
+        sizes="(max-width: 1024px) 92vw, 540px"
+        loading="eager"
+        format="webp"
+        quality={82}
+        class="aspect-[9/14] w-full rounded-[2rem] object-cover shadow-[var(--shadow-soft)]"
+      />
+    </div>
+  </div>
+</section>

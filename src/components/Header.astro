@@ -1,0 +1,155 @@
+---
+import CtaButton from './CtaButton.astro';
+import { INSTAGRAM_HANDLE } from '../config';
+
+const nav = [
+  { href: '#about', label: 'Про програму' },
+  { href: '#program', label: 'Структура' },
+  { href: '#format', label: 'Формат' },
+  { href: '#tariffs', label: 'Тарифи' },
+  { href: '#testimonials', label: 'Відгуки' },
+];
+---
+
+<header
+  id="site-header"
+  class="sticky top-0 z-40 transition-all duration-300"
+  data-scrolled="false"
+>
+  <div
+    class="absolute inset-0 -z-10 bg-[var(--color-cream)]/0 backdrop-blur-0 transition-all duration-300"
+    aria-hidden="true"
+    id="header-bg"
+  >
+  </div>
+
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+    <a
+      href="#hero"
+      class="font-display text-2xl text-[var(--color-accent)] md:text-3xl"
+      aria-label="На головну"
+    >
+      Наталія&nbsp;Войтович
+    </a>
+
+    <nav class="hidden lg:block" aria-label="Основна навігація">
+      <ul class="flex items-center gap-7 text-sm">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-[var(--color-ink-soft)] transition-colors hover:text-[var(--color-accent)]"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <CtaButton size="sm" class="hidden md:inline-flex" ariaLabel={`Записатися через Instagram ${INSTAGRAM_HANDLE}`}>
+        Записатися
+      </CtaButton>
+
+      <button
+        type="button"
+        id="burger-btn"
+        class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-full text-[var(--color-ink)] hover:bg-[var(--color-cream-dark)]"
+        aria-controls="mobile-menu"
+        aria-expanded="false"
+        aria-label="Відкрити меню"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-50 hidden flex-col bg-[var(--color-cream)] p-6 lg:hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Меню"
+  >
+    <div class="flex items-center justify-between">
+      <span class="font-display text-2xl text-[var(--color-accent)]">Меню</span>
+      <button
+        type="button"
+        id="burger-close"
+        class="inline-flex h-10 w-10 items-center justify-center rounded-full hover:bg-[var(--color-cream-dark)]"
+        aria-label="Закрити меню"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+    </div>
+
+    <ul class="mt-10 flex flex-col gap-6 text-2xl">
+      {
+        nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="font-display text-[var(--color-ink)] hover:text-[var(--color-accent)]"
+              data-mobile-link
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="mt-auto pt-6">
+      <CtaButton size="lg" class="w-full" ariaLabel="Записатися через Instagram">
+        Записатися
+      </CtaButton>
+    </div>
+  </div>
+</header>
+
+<script is:inline>
+  (function () {
+    const header = document.getElementById('site-header');
+    const bg = document.getElementById('header-bg');
+    const update = () => {
+      const scrolled = window.scrollY > 40;
+      if (header) header.dataset.scrolled = String(scrolled);
+      if (bg) {
+        bg.style.backgroundColor = scrolled ? 'rgba(245, 240, 232, 0.85)' : 'rgba(245, 240, 232, 0)';
+        bg.style.backdropFilter = scrolled ? 'blur(12px)' : 'blur(0)';
+        bg.style.boxShadow = scrolled ? '0 1px 0 rgba(201, 168, 107, 0.25)' : 'none';
+      }
+    };
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+
+    const menu = document.getElementById('mobile-menu');
+    const openBtn = document.getElementById('burger-btn');
+    const closeBtn = document.getElementById('burger-close');
+    const setOpen = (open) => {
+      if (!menu || !openBtn) return;
+      menu.classList.toggle('hidden', !open);
+      menu.classList.toggle('flex', open);
+      openBtn.setAttribute('aria-expanded', String(open));
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    openBtn?.addEventListener('click', () => setOpen(true));
+    closeBtn?.addEventListener('click', () => setOpen(false));
+    menu?.querySelectorAll('[data-mobile-link]').forEach((link) =>
+      link.addEventListener('click', () => setOpen(false)),
+    );
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
+    });
+  })();
+</script>

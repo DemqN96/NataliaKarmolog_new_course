@@ -1,0 +1,30 @@
+---
+import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../config';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-[var(--color-cream-soft)] py-12">
+  <div class="mx-auto flex max-w-7xl flex-col items-center gap-6 px-5 text-center md:flex-row md:justify-between md:px-8 md:text-left">
+    <div>
+      <p class="font-display text-2xl text-[var(--color-accent)]">Наталія Кармолог</p>
+      <p class="mt-1 text-sm text-[var(--color-ink-soft)]">Школа духовного розвитку · 3 потік</p>
+    </div>
+
+    <a
+      href={INSTAGRAM_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex items-center gap-3 rounded-full bg-[var(--color-ink)] px-5 py-3 text-sm text-[var(--color-cream)] transition-colors hover:bg-[var(--color-accent)]"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" />
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+      </svg>
+      {INSTAGRAM_HANDLE}
+    </a>
+
+    <p class="text-xs text-[var(--color-ink-soft)]">© {year} · Усі права захищені</p>
+  </div>
+</footer>

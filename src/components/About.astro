@@ -1,0 +1,41 @@
+---
+import { Image } from 'astro:assets';
+import { aboutIntro } from '../data/content';
+import aboutImg from '../assets/img/about-book.jpg';
+
+const renderMd = (text: string) =>
+  text.replace(
+    /\*\*(.+?)\*\*/g,
+    '<strong class="text-[var(--color-ink)] font-semibold">$1</strong>',
+  );
+---
+
+<section id="about" class="relative bg-[var(--color-cream-soft)] py-24 md:py-32">
+  <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 md:px-8 lg:grid-cols-2 lg:gap-20">
+    <div class="reveal order-2 lg:order-1">
+      <div
+        aria-hidden="true"
+        class="absolute -z-0 hidden h-72 w-72 rounded-full bg-[var(--color-cream-dark)]/70 blur-3xl lg:block"
+      >
+      </div>
+      <Image
+        src={aboutImg}
+        alt="Наталія читає книгу — наука та духовність в одній системі"
+        widths={[400, 600, 800]}
+        sizes="(max-width: 1024px) 92vw, 480px"
+        format="webp"
+        quality={80}
+        class="relative aspect-[9/14] w-full max-w-md rounded-[2rem] object-cover shadow-[var(--shadow-soft)]"
+      />
+    </div>
+
+    <div class="reveal order-1 lg:order-2">
+      <p class="section-title text-4xl md:text-5xl">Про програму</p>
+      <div class="mt-6 h-px w-20 bg-[var(--color-gold)]"></div>
+
+      <div class="mt-8 space-y-5 text-lg leading-relaxed text-[var(--color-ink-soft)]">
+        {aboutIntro.paragraphs.map((p) => <p set:html={renderMd(p)} />)}
+      </div>
+    </div>
+  </div>
+</section>

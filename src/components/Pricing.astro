@@ -1,0 +1,138 @@
+---
+import CtaButton from './CtaButton.astro';
+import Countdown from './Countdown.astro';
+import { tariffs } from '../data/content';
+import { PRICES, COURSE } from '../config';
+
+const paymentHref = `${import.meta.env.BASE_URL.replace(/\/$/, '')}/payment`;
+
+const formatUah = (n: number) => `${n.toLocaleString('uk-UA').replace(/,/g, ' ')} грн`;
+const formatUsd = (n: number) => `$${n.toLocaleString('uk-UA').replace(/,/g, ' ')}`;
+
+const priceData = {
+  expert: PRICES.expert,
+  vip: PRICES.vip,
+};
+---
+
+<section id="tariffs" class="bg-[var(--color-cream-soft)] py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="reveal flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div class="max-w-2xl">
+        <p class="section-title text-4xl md:text-5xl">Тарифи</p>
+        <div class="mt-6 h-px w-20 bg-[var(--color-gold)]"></div>
+        <p class="mt-6 text-lg text-[var(--color-ink-soft)]">
+          Раннє бронювання діє до <strong class="text-[var(--color-accent)]">{COURSE.earlyBirdLabel}</strong>. Після цього — стандартна ціна. Можлива оплата частинами — уточнити в Direct.
+        </p>
+      </div>
+      <div class="rounded-3xl bg-[var(--color-card)] p-6 shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/20">
+        <Countdown
+          targetIso={COURSE.earlyBirdDeadline}
+          label="До кінця раннього бронювання"
+          compact
+        />
+      </div>
+    </div>
+
+    <div class="mt-14 grid gap-6 lg:grid-cols-2">
+      {
+        tariffs.map((tariff) => {
+          const price = priceData[tariff.id as 'expert' | 'vip'];
+          const isVip = tariff.id === 'vip';
+          return (
+            <article
+              class={`reveal relative flex flex-col rounded-[2rem] p-8 md:p-10 ${
+                isVip
+                  ? 'bg-[var(--color-ink)] text-[var(--color-cream)] shadow-[0_24px_60px_-20px_rgba(61,46,32,0.5)]'
+                  : 'bg-[var(--color-card)] text-[var(--color-ink)] shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/15'
+              }`}
+            >
+              {isVip && (
+                <span class="absolute right-6 top-6 rounded-full bg-[var(--color-accent)] px-3 py-1 text-xs uppercase tracking-wider text-[var(--color-cream)]">
+                  Особистий супровід
+                </span>
+              )}
+
+              <header>
+                <p class={`text-xs uppercase tracking-[0.25em] ${isVip ? 'text-[var(--color-cream)]/70' : 'text-[var(--color-ink-soft)]'}`}>
+                  {tariff.slots}
+                </p>
+                <h3 class={`mt-2 font-display text-5xl ${isVip ? 'text-[var(--color-cream)]' : 'text-[var(--color-accent)]'}`}>
+                  {tariff.name}
+                </h3>
+              </header>
+
+              <div class={`mt-6 rounded-2xl p-5 ${isVip ? 'bg-[var(--color-cream)]/10' : 'bg-[var(--color-cream-soft)]'}`}>
+                <p class={`text-xs uppercase tracking-wider ${isVip ? 'text-[var(--color-cream)]/70' : 'text-[var(--color-ink-soft)]'}`}>
+                  Раннє бронювання до {COURSE.earlyBirdLabel}
+                </p>
+                <p class={`mt-2 font-display text-4xl ${isVip ? 'text-[var(--color-cream)]' : 'text-[var(--color-ink)]'}`}>
+                  {formatUah(price.earlyBird.uah)}
+                </p>
+                <p class={`text-sm ${isVip ? 'text-[var(--color-cream)]/60' : 'text-[var(--color-ink-soft)]'}`}>
+                  ≈ {formatUsd(price.earlyBird.usd)}
+                </p>
+                <p class={`mt-3 text-sm line-through ${isVip ? 'text-[var(--color-cream)]/50' : 'text-[var(--color-ink-soft)]/60'}`}>
+                  Звичайна — {formatUah(price.regular.uah)} ({formatUsd(price.regular.usd)})
+                </p>
+              </div>
+
+              <ul class="mt-7 flex-1 space-y-3 text-base">
+                {tariff.perks.map((perk) => (
+                  <li class="flex items-start gap-3">
+                    <svg
+                      class={isVip ? 'mt-1 h-5 w-5 shrink-0 text-[var(--color-gold)]' : 'mt-1 h-5 w-5 shrink-0 text-[var(--color-accent)]'}
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2.2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      aria-hidden="true"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                    <span class={isVip ? 'text-[var(--color-cream)]/90' : 'text-[var(--color-ink-soft)]'}>{perk}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div class="mt-8 space-y-3">
+                <CtaButton
+                  size="lg"
+                  variant={isVip ? 'secondary' : 'primary'}
+                  class="w-full"
+                  ariaLabel={`Записатися на тариф ${tariff.name} через Instagram`}
+                >
+                  Записатися — {tariff.name}
+                </CtaButton>
+                <a
+                  href={paymentHref}
+                  class={`flex w-full items-center justify-center gap-2 rounded-2xl border px-5 py-3 text-sm font-medium uppercase tracking-wider transition-colors ${
+                    isVip
+                      ? 'border-[var(--color-gold)]/50 text-[var(--color-gold)] hover:border-[var(--color-gold)] hover:bg-[var(--color-gold)]/10'
+                      : 'border-[var(--color-gold)]/40 text-[var(--color-ink)] hover:border-[var(--color-accent)] hover:text-[var(--color-accent)]'
+                  }`}
+                  aria-label={`Реквізити для банківського переказу — тариф ${tariff.name}`}
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                    <line x1="2" y1="10" x2="22" y2="10" />
+                  </svg>
+                  Реквізити для переказу
+                </a>
+              </div>
+            </article>
+          );
+        })
+      }
+    </div>
+
+    <p class="reveal mt-10 text-center text-sm italic text-[var(--color-ink-soft)]">
+      Можлива оплата частинами по місяцях — деталі обговорюємо персонально в Direct.
+    </p>
+  </div>
+</section>

@@ -1,0 +1,88 @@
+---
+import { INSTAGRAM_URL } from '../config';
+
+interface Props {
+  variant?: 'primary' | 'secondary' | 'outline' | 'gold';
+  size?: 'sm' | 'md' | 'lg';
+  href?: string;
+  external?: boolean;
+  class?: string;
+  ariaLabel?: string;
+  iconType?: 'arrow' | 'card' | 'none';
+}
+
+const {
+  variant = 'primary',
+  size = 'md',
+  href = INSTAGRAM_URL,
+  external = href?.startsWith('http') ?? false,
+  class: extraClass = '',
+  ariaLabel,
+  iconType = 'arrow',
+} = Astro.props;
+
+const sizeClasses = {
+  sm: 'px-5 py-2.5 text-sm',
+  md: 'px-7 py-3.5 text-base',
+  lg: 'px-9 py-4 text-lg',
+}[size];
+
+const variantClasses = {
+  primary:
+    'bg-[var(--color-accent)] text-[var(--color-cream)] hover:bg-[var(--color-ink)]',
+  secondary:
+    'bg-[var(--color-ink)] text-[var(--color-cream)] hover:bg-[var(--color-accent)]',
+  outline:
+    'border border-[var(--color-ink)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-cream)]',
+  gold:
+    'bg-[var(--color-gold)] text-[var(--color-ink)] hover:bg-[var(--color-ink)] hover:text-[var(--color-cream)]',
+}[variant];
+---
+
+<a
+  href={href}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+  aria-label={ariaLabel}
+  class={`inline-flex items-center justify-center gap-2 rounded-full font-medium tracking-wide uppercase transition-all duration-300 hover:-translate-y-0.5 shadow-[0_8px_24px_-12px_rgba(160,40,40,0.6)] ${sizeClasses} ${variantClasses} ${extraClass}`}
+>
+  <slot />
+  {
+    iconType === 'arrow' && external && (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <line x1="7" y1="17" x2="17" y2="7" />
+        <polyline points="7 7 17 7 17 17" />
+      </svg>
+    )
+  }
+  {
+    iconType === 'card' && (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <rect x="2" y="5" width="20" height="14" rx="2" />
+        <line x1="2" y1="10" x2="22" y2="10" />
+      </svg>
+    )
+  }
+</a>

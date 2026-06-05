@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import CtaButton from './CtaButton.astro';
+import { finalCta } from '../data/content';
+import { COURSE } from '../config';
+import bgImg from '../assets/img/cta-podcast.jpg';
+---
+
+<section id="cta" class="relative overflow-hidden bg-[var(--color-ink)] py-24 md:py-32">
+  <div aria-hidden="true" class="absolute inset-0">
+    <Image
+      src={bgImg}
+      alt=""
+      widths={[600, 1000, 1600]}
+      sizes="100vw"
+      format="webp"
+      quality={70}
+      loading="lazy"
+      class="h-full w-full object-cover object-[60%_center] opacity-25"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-[var(--color-ink)] via-[var(--color-ink)]/85 to-transparent"></div>
+  </div>
+
+  <div class="relative mx-auto max-w-3xl px-5 text-center md:px-8">
+    <p class="reveal text-xs uppercase tracking-[0.3em] text-[var(--color-gold)]">
+      3 потік · Старт {COURSE.startDateLabel}
+    </p>
+    <h2 class="reveal mt-6 font-display text-5xl leading-tight text-[var(--color-cream)] md:text-7xl">
+      {finalCta.headline}
+    </h2>
+    <p class="reveal mt-8 text-lg leading-relaxed text-[var(--color-cream)]/85 md:text-xl">
+      {finalCta.text}
+    </p>
+
+    <div class="reveal mt-12 flex flex-col items-center gap-4 sm:flex-row sm:justify-center">
+      <CtaButton size="lg">{finalCta.cta}</CtaButton>
+      <a
+        href="#tariffs"
+        class="inline-flex items-center gap-2 px-4 py-3 text-sm uppercase tracking-wider text-[var(--color-cream)] hover:text-[var(--color-gold)]"
+      >
+        Подивитись тарифи
+      </a>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,68 @@
+---
+interface Props {
+  targetIso: string;
+  label?: string;
+  compact?: boolean;
+  class?: string;
+}
+
+const { targetIso, label = 'До старту', compact = false, class: extraClass = '' } = Astro.props;
+---
+
+<div class={`countdown ${extraClass}`} data-target={targetIso} data-compact={String(compact)}>
+  <p class="text-xs uppercase tracking-[0.2em] text-[var(--color-ink-soft)]">{label}</p>
+  <div class="mt-2 flex items-baseline gap-3" data-cd-grid>
+    <div class="flex items-baseline gap-1.5">
+      <span class={compact ? 'font-display text-3xl text-[var(--color-accent)]' : 'font-display text-5xl text-[var(--color-accent)] md:text-6xl'} data-cd="days">--</span>
+      <span class="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">днів</span>
+    </div>
+    <div class="flex items-baseline gap-1.5">
+      <span class={compact ? 'font-display text-3xl text-[var(--color-accent)]' : 'font-display text-5xl text-[var(--color-accent)] md:text-6xl'} data-cd="hours">--</span>
+      <span class="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">год</span>
+    </div>
+    <div class="flex items-baseline gap-1.5">
+      <span class={compact ? 'font-display text-3xl text-[var(--color-accent)]' : 'font-display text-5xl text-[var(--color-accent)] md:text-6xl'} data-cd="minutes">--</span>
+      <span class="text-xs uppercase tracking-wider text-[var(--color-ink-soft)]">хв</span>
+    </div>
+  </div>
+  <p class="mt-2 hidden text-sm italic text-[var(--color-ink-soft)]" data-cd-elapsed>Потік уже стартував — пиши в Direct, ще можна приєднатись!</p>
+</div>
+
+<script is:inline>
+  (function () {
+    const tick = (el) => {
+      const targetTs = new Date(el.dataset.target).getTime();
+      const now = Date.now();
+      const diff = targetTs - now;
+      const elapsed = el.querySelector('[data-cd-elapsed]');
+      const grid = el.querySelector('[data-cd-grid]');
+      if (diff <= 0) {
+        if (grid) grid.style.display = 'none';
+        if (elapsed) elapsed.classList.remove('hidden');
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const set = (name, v) => {
+        const node = el.querySelector(`[data-cd="${name}"]`);
+        if (node) node.textContent = String(v).padStart(2, '0');
+      };
+      set('days', days);
+      set('hours', hours);
+      set('minutes', minutes);
+    };
+
+    const init = () => {
+      document.querySelectorAll('.countdown').forEach((el) => {
+        tick(el);
+        setInterval(() => tick(el), 30_000);
+      });
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

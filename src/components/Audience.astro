@@ -1,0 +1,42 @@
+---
+import { Image } from 'astro:assets';
+import { audience } from '../data/content';
+import audienceImg from '../assets/img/audience-portrait.jpg';
+---
+
+<section id="audience" class="bg-[var(--color-cream-soft)] py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="grid items-end gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+      <div class="reveal max-w-3xl">
+        <p class="section-title text-4xl md:text-5xl">Для кого це навчання</p>
+        <div class="mt-6 h-px w-20 bg-[var(--color-gold)]"></div>
+        <p class="mt-6 text-lg text-[var(--color-ink-soft)]">
+          Програма побудована так, щоб ти могла застосовувати її і для власної трансформації, і для професійної роботи з клієнтами.
+        </p>
+      </div>
+      <div class="reveal hidden lg:block">
+        <Image
+          src={audienceImg}
+          alt="Наталія Кармолог — щиро рада новим учням"
+          widths={[280, 420, 560]}
+          sizes="280px"
+          format="webp"
+          quality={78}
+          loading="lazy"
+          class="aspect-[3/4] w-[260px] rounded-[1.75rem] object-cover object-top shadow-[var(--shadow-card)]"
+        />
+      </div>
+    </div>
+
+    <ul class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        audience.map((p) => (
+          <li class="reveal flex h-full flex-col gap-3 rounded-3xl bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/15">
+            <h3 class="font-display text-xl text-[var(--color-ink)] md:text-2xl">{p.title}</h3>
+            <p class="text-base leading-relaxed text-[var(--color-ink-soft)]">{p.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import { format } from '../data/content';
+import formatImg from '../assets/img/format-tablet.jpg';
+---
+
+<section id="format" class="py-24 md:py-32">
+  <div class="mx-auto grid max-w-7xl items-center gap-14 px-5 md:px-8 lg:grid-cols-[1fr_1.1fr]">
+    <div class="reveal relative order-2 lg:order-1">
+      <Image
+        src={formatImg}
+        alt="Формат навчання — онлайн з підтримкою куратора"
+        widths={[400, 600, 800]}
+        sizes="(max-width: 1024px) 92vw, 480px"
+        format="webp"
+        quality={80}
+        class="aspect-[9/14] w-full max-w-md rounded-[2rem] object-cover shadow-[var(--shadow-soft)]"
+      />
+    </div>
+
+    <div class="reveal order-1 lg:order-2">
+      <p class="section-title text-4xl md:text-5xl">У якому форматі проходить навчання</p>
+      <div class="mt-6 h-px w-20 bg-[var(--color-gold)]"></div>
+
+      <ul class="mt-10 space-y-5">
+        {
+          format.map((item, i) => (
+            <li class="flex gap-5 rounded-2xl bg-[var(--color-card)] px-6 py-5 shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/15">
+              <span class="font-display text-2xl text-[var(--color-accent)]">{String(i + 1).padStart(2, '0')}</span>
+              <p class="pt-1 text-base leading-relaxed text-[var(--color-ink-soft)]">{item}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>

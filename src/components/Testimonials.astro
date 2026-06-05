@@ -1,0 +1,111 @@
+---
+import { Image } from 'astro:assets';
+import t12 from '../assets/img/12.jpg';
+import t13 from '../assets/img/13.jpg';
+import t14 from '../assets/img/14.jpg';
+import t15 from '../assets/img/15.jpg';
+import t16 from '../assets/img/16.jpg';
+import t17 from '../assets/img/17.jpg';
+import t18 from '../assets/img/18.jpg';
+
+const slides = [
+  { src: t12, alt: 'Відгук учениці №1 — Школа духовного розвитку' },
+  { src: t13, alt: 'Відгук учениці №2 — Школа духовного розвитку' },
+  { src: t14, alt: 'Відгук учениці №3 — Школа духовного розвитку' },
+  { src: t15, alt: 'Відгук учениці №4 — Школа духовного розвитку' },
+  { src: t16, alt: 'Відгук учениці №5 — Школа духовного розвитку' },
+  { src: t17, alt: 'Відгук учениці №6 — Школа духовного розвитку' },
+  { src: t18, alt: 'Відгук учениці №7 — Школа духовного розвитку' },
+];
+---
+
+<section id="testimonials" class="py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="reveal max-w-3xl">
+      <p class="section-title text-4xl md:text-5xl">Відгуки учнів</p>
+      <div class="mt-6 h-px w-20 bg-[var(--color-gold)]"></div>
+      <p class="mt-6 text-lg text-[var(--color-ink-soft)]">
+        Реальні слова з минулих потоків навчання. Натисни на будь-який відгук, щоб прочитати повністю.
+      </p>
+    </div>
+
+    <ul class="mt-14 grid gap-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      {
+        slides.map((s, i) => (
+          <li class="reveal">
+            <button
+              type="button"
+              class="group block w-full overflow-hidden rounded-3xl bg-[var(--color-card)] shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/15 transition-all hover:-translate-y-1 hover:shadow-[var(--shadow-soft)]"
+              data-lightbox-open={i}
+              aria-label={`Відкрити відгук ${i + 1}`}
+            >
+              <Image
+                src={s.src}
+                alt={s.alt}
+                widths={[280, 420, 560]}
+                sizes="(max-width: 640px) 46vw, (max-width: 1024px) 30vw, 280px"
+                format="webp"
+                quality={75}
+                loading="lazy"
+                class="aspect-[9/16] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+              />
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      slides.map((s, i) => (
+        <dialog
+          id={`testimonial-${i}`}
+          class="m-auto max-h-[90dvh] max-w-[90vw] rounded-3xl bg-transparent p-0 backdrop:bg-[var(--color-ink)]/85"
+        >
+          <div class="relative">
+            <button
+              type="button"
+              class="absolute right-3 top-3 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-cream)] text-[var(--color-ink)] shadow-lg hover:bg-[var(--color-accent)] hover:text-[var(--color-cream)]"
+              data-lightbox-close
+              aria-label="Закрити"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+            <Image
+              src={s.src}
+              alt={s.alt}
+              widths={[480, 720, 960]}
+              sizes="90vw"
+              format="webp"
+              quality={85}
+              loading="lazy"
+              class="block max-h-[90dvh] w-auto rounded-3xl object-contain"
+            />
+          </div>
+        </dialog>
+      ))
+    }
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    document.querySelectorAll('[data-lightbox-open]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const idx = btn.getAttribute('data-lightbox-open');
+        const dlg = document.getElementById(`testimonial-${idx}`);
+        if (dlg && typeof dlg.showModal === 'function') dlg.showModal();
+      });
+    });
+    document.querySelectorAll('dialog [data-lightbox-close]').forEach((btn) => {
+      btn.addEventListener('click', () => btn.closest('dialog')?.close());
+    });
+    document.querySelectorAll('dialog').forEach((dlg) => {
+      dlg.addEventListener('click', (e) => {
+        if (e.target === dlg) dlg.close();
+      });
+    });
+  })();
+</script>

@@ -1,0 +1,35 @@
+---
+import { benefits } from '../data/content';
+import { COURSE } from '../config';
+---
+
+<section id="benefits" class="py-24 md:py-32">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="reveal max-w-3xl">
+      <p class="section-title text-4xl md:text-5xl">
+        Що отримаєш за {COURSE.durationMonths} місяці навчання
+      </p>
+      <div class="mt-6 h-px w-20 bg-[var(--color-gold)]"></div>
+      <p class="mt-6 text-lg text-[var(--color-ink-soft)]">
+        Цілісна система, яка дає не просто знання, а реальні інструменти для змін у житті — твоєму та твоїх клієнтів.
+      </p>
+    </div>
+
+    <ul class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        benefits.map((b, i) => (
+          <li class="reveal group relative flex flex-col gap-3 rounded-3xl bg-[var(--color-card)] p-7 shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/15 transition-transform hover:-translate-y-1">
+            <div class="flex items-center gap-3">
+              <span class="font-display text-3xl text-[var(--color-accent)]">{String(i + 1).padStart(2, '0')}</span>
+              <span class="block h-px flex-1 bg-[var(--color-gold)]/40" />
+            </div>
+            <p class="text-base leading-relaxed text-[var(--color-ink-soft)]">
+              <span class="font-semibold text-[var(--color-ink)]">{b.highlight}</span>{' '}
+              {b.text}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</section>
