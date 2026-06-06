@@ -186,7 +186,7 @@ export const tariffs = [
   {
     id: 'vip',
     name: 'VIP',
-    slots: '4 місця',
+    slots: '3 місця',
     perks: [
       '4 місяці навчання',
       '30 уроків та всі додаткові матеріали',

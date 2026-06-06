@@ -27,7 +27,7 @@ export const PRICES = {
   vip: {
     regular: { uah: 67_000, usd: 1_510 },
     earlyBird: { uah: 62_500, usd: 1_410 },
-    slots: 4,
+    slots: 3,
   },
 } as const;
 
