@@ -2,7 +2,7 @@ export const SITE = {
   title: 'Школа духовного розвитку — Наталія Кармолог',
   description:
     'Унікальна система, що поєднує психологію, регрес, кармологію та психосоматику. Старт 3-го потоку — 30 липня.',
-  url: 'https://demqn96.github.io/main',
+  url: 'https://demqn96.github.io/NataliaKarmolog_new_course',
   author: 'Наталія Кармолог',
   lang: 'uk',
   ogImage: '/og.jpg',
