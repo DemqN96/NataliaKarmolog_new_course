@@ -10,23 +10,23 @@ export const SITE = {
 
 export const COURSE = {
   startDate: '2026-07-30T10:00:00+03:00',
-  earlyBirdDeadline: '2026-07-10T23:59:59+03:00',
+  earlyBirdDeadline: '2026-07-16T23:59:59+03:00',
   streamNumber: 3,
   durationMonths: 4,
   lessonsCount: 30,
   startDateLabel: '30 липня',
-  earlyBirdLabel: '10 липня',
+  earlyBirdLabel: '16 липня',
 };
 
 export const PRICES = {
   expert: {
-    regular: { uah: 35_000, usd: 790 },
-    earlyBird: { uah: 30_600, usd: 690 },
+    regular: { uah: 40_000, usd: 900 },
+    earlyBird: { uah: 36_000, usd: 800 },
     slots: 30,
   },
   vip: {
-    regular: { uah: 67_000, usd: 1_510 },
-    earlyBird: { uah: 62_500, usd: 1_410 },
+    regular: { uah: 67_000, usd: 1_500 },
+    earlyBird: { uah: 63_000, usd: 1_400 },
     slots: 3,
   },
 } as const;
