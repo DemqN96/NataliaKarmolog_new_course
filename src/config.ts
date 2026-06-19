@@ -57,6 +57,6 @@ export const AUTHOR = {
   stats: [
     { value: '130+', label: 'учнів' },
     { value: '700+', label: 'особистих терапій' },
-    { value: '4', label: 'місяці навчання' },
+    { value: '5+', label: 'років досвіду роботи' },
   ],
 };
