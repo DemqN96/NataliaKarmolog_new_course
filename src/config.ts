@@ -20,8 +20,8 @@ export const COURSE = {
 
 export const PRICES = {
   expert: {
-    regular: { uah: 40_000, usd: 900 },
-    earlyBird: { uah: 36_000, usd: 800 },
+    regular: { uah: 36_000, usd: 800 },
+    earlyBird: { uah: 31_000, usd: 690 },
     slots: 30,
   },
   vip: {
