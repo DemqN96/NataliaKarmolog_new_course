@@ -21,9 +21,6 @@ const priceData = {
       <div class="max-w-2xl">
         <p class="section-title text-4xl md:text-5xl">Тарифи</p>
         <div class="mt-6 h-px w-20 bg-[var(--color-gold)]"></div>
-        <p class="mt-6 text-lg text-[var(--color-ink-soft)]">
-          Раннє бронювання діє до <strong class="text-[var(--color-accent)]">{COURSE.earlyBirdLabel}</strong>. Після цього — стандартна ціна. Можлива оплата частинами — уточнити в Direct.
-        </p>
       </div>
       <div class="rounded-3xl bg-[var(--color-card)] p-6 shadow-[var(--shadow-card)] ring-1 ring-[var(--color-gold)]/20">
         <Countdown
@@ -63,17 +60,11 @@ const priceData = {
               </header>
 
               <div class={`mt-6 rounded-2xl p-5 ${isVip ? 'bg-[var(--color-cream)]/10' : 'bg-[var(--color-cream-soft)]'}`}>
-                <p class={`text-xs uppercase tracking-wider ${isVip ? 'text-[var(--color-cream)]/70' : 'text-[var(--color-ink-soft)]'}`}>
-                  Раннє бронювання до {COURSE.earlyBirdLabel}
-                </p>
-                <p class={`mt-2 font-display text-4xl ${isVip ? 'text-[var(--color-cream)]' : 'text-[var(--color-ink)]'}`}>
-                  {formatUah(price.earlyBird.uah)}
+                <p class={`font-display text-4xl ${isVip ? 'text-[var(--color-cream)]' : 'text-[var(--color-ink)]'}`}>
+                  {formatUah(price.regular.uah)}
                 </p>
                 <p class={`text-sm ${isVip ? 'text-[var(--color-cream)]/60' : 'text-[var(--color-ink-soft)]'}`}>
-                  ≈ {formatUsd(price.earlyBird.usd)}
-                </p>
-                <p class={`mt-3 text-sm line-through ${isVip ? 'text-[var(--color-cream)]/50' : 'text-[var(--color-ink-soft)]/60'}`}>
-                  Звичайна — {formatUah(price.regular.uah)} ({formatUsd(price.regular.usd)})
+                  ≈ {formatUsd(price.regular.usd)}
                 </p>
               </div>
 
