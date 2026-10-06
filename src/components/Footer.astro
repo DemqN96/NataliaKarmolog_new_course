@@ -1,5 +1,5 @@
 ---
-import { INSTAGRAM_URL, INSTAGRAM_HANDLE } from '../config';
+import { INSTAGRAM_URL, INSTAGRAM_HANDLE, OFFER_URL } from '../config';
 
 const year = new Date().getFullYear();
 ---
@@ -25,6 +25,16 @@ const year = new Date().getFullYear();
       {INSTAGRAM_HANDLE}
     </a>
 
-    <p class="text-xs text-[var(--color-ink-soft)]">© {year} · Усі права захищені</p>
+    <div class="flex flex-col items-center gap-2 md:items-end">
+      <a
+        href={OFFER_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-xs uppercase tracking-wide text-[var(--color-ink-soft)] underline underline-offset-4 transition-colors hover:text-[var(--color-accent)]"
+      >
+        Договір публічної оферти
+      </a>
+      <p class="text-xs text-[var(--color-ink-soft)]">© {year} · Усі права захищені</p>
+    </div>
   </div>
 </footer>

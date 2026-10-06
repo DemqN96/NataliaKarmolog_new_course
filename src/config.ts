@@ -34,6 +34,9 @@ export const PRICES = {
 export const INSTAGRAM_URL = 'https://www.instagram.com/nataliia_karmolog/';
 export const INSTAGRAM_HANDLE = '@nataliia_karmolog';
 
+export const OFFER_URL =
+  'https://docs.google.com/document/d/1LpoK-xrjuxAdWGmP7Ct0wNqGZQWS0nNq/edit?usp=sharing';
+
 export const BANK_DETAILS = {
   recipient: 'ФОП Войтович Наталія Вікторівна',
   ipn: '3571600882',
